@@ -7,6 +7,23 @@ model = pickle.load(open('model.pkl', 'rb'))
 label = pickle.load(open('label.pkl', 'rb'))
 
 st.set_page_config(page_title="Weather Predictor", layout="wide")
+st.markdown("""
+    <style>
+    div.stButton > button {
+        background-color: #d4750d !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        transition: all 0.2s ease !important;
+    }
+    div.stButton > button:hover {
+        background-color: #1558b0 !important;
+        box-shadow: 0 4px 12px rgba(26,115,232,0.4) !important;
+        transform: translateY(-1px) !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # Centered title via markdown
 st.markdown(
@@ -46,11 +63,11 @@ col_left, col_right = st.columns(2)
 with col_left:
     st.subheader("Manual Input Form")
 
-    temperature = st.number_input("Temperature", key="temp")
-    humidity    = st.number_input("Humidity", key="hum")
-    wind_speed  = st.number_input("Wind Speed", key="ws")
-    cloud_cover = st.number_input("Cloud Cover", key="cc")
-    pressure    = st.number_input("Pressure", key="pres")
+    temperature = st.number_input("Temperature", key="temp", min_value=0, step=1, format="%d")
+    humidity    = st.number_input("Humidity",    key="hum",  min_value=0, step=1, format="%d")
+    wind_speed  = st.number_input("Wind Speed",  key="ws",   min_value=0, step=1, format="%d")
+    cloud_cover = st.number_input("Cloud Cover", key="cc",   min_value=0, step=1, format="%d")
+    pressure    = st.number_input("Pressure",    key="pres", min_value=0, step=1, format="%d")
 
     if st.button("Predict Weather", use_container_width=True):
         data = pd.DataFrame({
